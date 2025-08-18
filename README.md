@@ -130,33 +130,33 @@ Step:
 
 0. I have setup a bash script to automate this step, the detail steps you can see from 1+. (if you just want it to work, you can skip the rest detail step explanation)
 
-    ```sudo su
-    ```bash<(curl -L https://raw.githubusercontent.com/afun7/scientific_network_tool/refs/heads/main/config_example/vmess%2Btcp/setup_script.sh)
+    sudo su
+    bash <(curl -L https://raw.githubusercontent.com/afun7/scientific_network_tool/refs/heads/main/config_example/vmess%2Btcp/setup_script.sh)
 
 
 
 1. ssh to the server
 
-    ```ssh -i <pem file path> admin@<ec2 ip address> #admin is debian's default user name
+    ssh -i <pem file path> admin@<ec2 ip address> #admin is debian's default user name
 
 2. grant super user right so we won' be blocked
-    ```sudo su
+    sudo su
 
 3. update apt local repocitory, and install useful cmd-line tool
-    ```apt update
-    ```apt install neovim
+    apt update
+    apt install neovim
 
 4. sync system time, as v2ray will check the socket from client and server to be < 90s difference
-    ```systemctl restart ntp
-    ```ntpq -p
-    ```timedatectl set-timezone UTC
-    ```timedatectl
-    ```echo wait 30s please check utc time
-    ```sleep 30s
+    systemctl restart ntp
+    ntpq -p
+    timedatectl set-timezone UTC
+    timedatectl
+    echo wait 30s please check utc time
+    sleep 30s
 
 5. run the v2ray installtion script
     // install and update v2ray
-    ```bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)
+    bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)
 
 
 
@@ -164,20 +164,20 @@ Step:
 
 # prepare the config file
 Download template config
-```ls /usr/local/etc/v2ray/
-```(curl -L https://raw.githubusercontent.com/afun7/scientific_network_tool/refs/heads/main/config_example/vmess%2Btcp/config_server.json)>/usr/local/etc/v2ray/config.json
-```curl -o /usr/local/etc/v2ray/config.json https://raw.githubusercontent.com/afun7/scientific_network_tool/refs/heads/main/config_example/vmess%2Btcp/config_server.json
-```cat /usr/local/etc/v2ray/config.json
+ls /usr/local/etc/v2ray/
+(curl -L https://raw.githubusercontent.com/afun7/scientific_network_tool/refs/heads/main/config_example/vmess%2Btcp/config_server.json)>/usr/local/etc/v2ray/config.json
+curl -o /usr/local/etc/v2ray/config.json https://raw.githubusercontent.com/afun7/scientific_network_tool/refs/heads/main/config_example/vmess%2Btcp/config_server.json
+cat /usr/local/etc/v2ray/config.json
 
 Generate a random-based UUID
-```uuid=$(uuidgen -r)
+uuid=$(uuidgen -r)
 
 Print the generated UUID
-```echo "Generated UUID: [$uuid] , please save it to somewhere, wait 30 seconds"
-```sleep 30s
+echo "Generated UUID: [$uuid] , please save it to somewhere, wait 30 seconds"
+sleep 30s
 
 Replace uuid in the file
-```sed -i "s/<YOUR UUID>/$uuid/g" /usr/local/etc/v2ray/config.json
+sed -i "s/<YOUR UUID>/$uuid/g" /usr/local/etc/v2ray/config.json
 
     
     Basic Text Replacement:
@@ -214,12 +214,12 @@ sed -i "s/$SEARCH_TEXT/$REPLACE_TEXT/g" "$FILE"
 9.helpful command
     check where the config file is getting from
 
-    ```v2ray -config /path/to/your/config.json #force v2ray to use a specific config.json path
-    ```systemctl status v2ray #check whether v2ray is active and is there any error logs
-    ```journalctl -u v2ray -f #Logs usually show detailed information about configuration loading and runtime errors
-    ```ss -tulnp | grep 10087 You can check if V2Ray is listening on the configured port:
-    ```systemctl cat v2ray # see what config file v2ray is using
-    ```v2ray -test -config=/usr/local/etc/v2ray/config.json # we can use this command to check whether our script has any issue
+    v2ray -config /path/to/your/config.json #force v2ray to use a specific config.json path
+    systemctl status v2ray #check whether v2ray is active and is there any error logs
+    journalctl -u v2ray -f #Logs usually show detailed information about configuration loading and runtime errors
+    ss -tulnp | grep 10087 You can check if V2Ray is listening on the configured port:
+    systemctl cat v2ray # see what config file v2ray is using
+    v2ray -test -config=/usr/local/etc/v2ray/config.json # we can use this command to check whether our script has any issue
 
 
 
