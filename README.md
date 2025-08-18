@@ -130,12 +130,14 @@ Step:
 
 0. I have setup a bash script to automate this step, the detail steps you can see from 1+. (if you just want it to work, you can skip the rest detail step explanation)
 
-    sudo su
+    ```sudo su
+    ```bash<(curl -L https://raw.githubusercontent.com/afun7/scientific_network_tool/refs/heads/main/config_example/vmess%2Btcp/setup_script.sh)
+
 
 
 1. ssh to the server
 
-ssh -i <pem file path> admin@<ec2 ip address> #admin is debian's default user name
+    ```ssh -i <pem file path> admin@<ec2 ip address> #admin is debian's default user name
 
 2. grant super user right so we won' be blocked
     ```sudo su
