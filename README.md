@@ -130,16 +130,21 @@ Step:
 
 0. I have setup a bash script to automate this step, the detail steps you can see from 1+. (if you just want it to work, you can skip the rest detail step explanation)
 
+    sudo su
+
+
 1. ssh to the server
+
+ssh -i <pem file path> admin@<ec2 ip address> #admin is debian's default user name
 
 2. grant super user right so we won' be blocked
     sudo su
 
-3. sync system time, as v2ray will check the socket from client and server to be < 90s difference
-
-4. update apt local repocitory, and install useful cmd-line tool
+3. update apt local repocitory, and install useful cmd-line tool
     apt update
     apt install neovim
+
+4. sync system time, as v2ray will check the socket from client and server to be < 90s difference
 
 5. run the v2ray installtion script
 
