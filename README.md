@@ -71,19 +71,59 @@ Fisrtly of all, we need to setup a VPC and VM to provision the hardwere to run o
 Step:
 1. create a VPC in the region you lik*** Here conclude the imbound traffic to server, here is a flow charte, use the default CIDR range (CIDR range XXX,XXX,XXX,XXX/N just means the ip range if I keep the front N digit static and change the rest)
 
+![alt text](config_example/res/image/image.png)
+
 2. create the subnet on one of the AZ
+![alt text](config_example/res/image/image-1.png)
 
 3. create NACL (subnet level firewall rule and stateless) to allow all inbound and all outbound
+![alt text](config_example/res/image/image-2.png)
+![alt text](config_example/res/image/image-3.png)
 
-4. create a internet gateway as bridge to connect vpc to public internet
+4. create a internet gateway as bridge to connect vpc to public internet, and attach to vpc
+![alt text](config_example/res/image/image-4.png)
+![alt text](config_example/res/image/image-5.png)
 
 5. add routing table rule for internet gateway so when we are sending reponse it will route it to internet gateway
+![alt text](config_example/res/image/image-6.png)
 
 6. create ec2 instance in the subnet
+    Supported OS Platforms
+
+    The following platforms are supported by V2Ray:
+
+        Windows 7 and later（x86 / amd64 / arm32）
+        macOS 10.10 Yosemite and later（amd64）
+        Linux 2.6.23 and later（x86 / amd64 / arm / arm64 / mips64 / mips / ppc64 / s390x / riscv64）
+            including but not limited to Debian 7 / 8, Ubuntu 12.04 / 14.04 and later, CentOS 6 / 7 and Arch Linux
+        FreeBSD (x86 / amd64)
+        OpenBSD (x86 / amd64)
+        Dragonfly BSD (amd64)
+
+    I use debian here
+    ![alt text](config_example/res/image/image-7.png)
+
+    you can set key for ssh traffic
+    ![alt text](config_example/res/image/image-8.png)
+
+    set public ip as true, so our client can connect to it
+    ![alt text](config_example/res/image/image-9.png)
+
+    set SG, make sure to enable ssh port 22 and vmess port you want to use
+    ![alt text](config_example/res/image/image-10.png)
+
+
+
+
+
 
 7. configure the security group, SG is on instance level (actually in the graphic card of the instance)
+    set SG, make sure to enable ssh port 22 and vmess port you want to use
+    ![alt text](config_example/res/image/image-10.png)
 
 8. connect to instance,prepare ec2 instance as a v2ray server, ie. install v2ray software, config v2ray and start v2ray--->[Server setup]
+    ssh into the ec2 instance use the server key
+
 
 
 # Server setup
@@ -116,4 +156,5 @@ Step:
 
 https://www.v2fly.org/developer/protocols/vmess.html
 https://guide.v2fly.org/basics/vmess.html#%E6%9C%8D%E5%8A%A1%E5%99%A8
+https://www.v2fly.org/en_US/guide/install.html
 
