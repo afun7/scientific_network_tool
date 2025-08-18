@@ -160,6 +160,23 @@ ssh -i <pem file path> admin@<ec2 ip address> #admin is debian's default user na
 
 6. stop v2ray and config v2ray (download existing server and client config file ), and all the helper command that might be useful
 
+# prepare the config file
+Download template config
+```ls /usr/local/etc/v2ray/
+```(curl -L https://raw.githubusercontent.com/afun7/scientific_network_tool/refs/heads/main/config_example/vmess%2Btcp/config_server.json)>/usr/local/etc/v2ray/config.json
+```curl -o /usr/local/etc/v2ray/config.json https://raw.githubusercontent.com/afun7/scientific_network_tool/refs/heads/main/config_example/vmess%2Btcp/config_server.json
+```cat /usr/local/etc/v2ray/config.json
+
+Generate a random-based UUID
+```uuid=$(uuidgen -r)
+
+Print the generated UUID
+```echo "Generated UUID: [$uuid] , please save it to somewhere, wait 30 seconds"
+```sleep 30s
+
+Replace uuid in the file
+```sed -i "s/<YOUR UUID>/$uuid/g" /usr/local/etc/v2ray/config.json
+
     
     Basic Text Replacement:
 To replace all occurrences of a specific string with another string within a file, use the following sed command:
@@ -186,16 +203,22 @@ Code
 sed -i "s/$SEARCH_TEXT/$REPLACE_TEXT/g" "$FILE"
 
 7. enable v2ray to run automatically and start
-    v2ray enable
-    v2ray stop 
-    v2ray start
-
-
-
-
-
+    systemctl stop v2ray 
+    systemctl enable v2ray 
+    systemctl start v2ray 
 
 8. start v2ray and enjoy the internet XD
+
+9.helpful command
+    check where the config file is getting from
+
+    ```v2ray -config /path/to/your/config.json #force v2ray to use a specific config.json path
+    ```systemctl status v2ray #check whether v2ray is active and is there any error logs
+    ```journalctl -u v2ray -f #Logs usually show detailed information about configuration loading and runtime errors
+    ```ss -tulnp | grep 10087 You can check if V2Ray is listening on the configured port:
+    ```systemctl cat v2ray # see what config file v2ray is using
+    ```v2ray -test -config=/usr/local/etc/v2ray/config.json # we can use this command to check whether our script has any issue
+
 
 
 # Client setup
@@ -205,4 +228,5 @@ sed -i "s/$SEARCH_TEXT/$REPLACE_TEXT/g" "$FILE"
 https://www.v2fly.org/developer/protocols/vmess.html
 https://guide.v2fly.org/basics/vmess.html#%E6%9C%8D%E5%8A%A1%E5%99%A8
 https://www.v2fly.org/en_US/guide/install.html
+https://github.com/v2fly/v2ray-examples
 
