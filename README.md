@@ -138,19 +138,62 @@ Step:
 ssh -i <pem file path> admin@<ec2 ip address> #admin is debian's default user name
 
 2. grant super user right so we won' be blocked
-    sudo su
+    ```sudo su
 
 3. update apt local repocitory, and install useful cmd-line tool
-    apt update
-    apt install neovim
+    ```apt update
+    ```apt install neovim
 
 4. sync system time, as v2ray will check the socket from client and server to be < 90s difference
+    ```systemctl restart ntp
+    ```ntpq -p
+    ```timedatectl set-timezone UTC
+    ```timedatectl
+    ```echo wait 30s please check utc time
+    ```sleep 30s
 
 5. run the v2ray installtion script
+    // install and update v2ray
+    ```bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)
 
-6. enable v2ray to run automatically
 
-7. stop v2ray and config v2ray (download existing server and client config file ), and all the helper command that might be useful
+
+6. stop v2ray and config v2ray (download existing server and client config file ), and all the helper command that might be useful
+
+    
+    Basic Text Replacement:
+To replace all occurrences of a specific string with another string within a file, use the following sed command:
+Code
+
+sed -i 's/old_string/new_string/g' filename.txt
+
+    sed: The stream editor command.
+    -i: This option tells sed to edit the file in-place, meaning the changes are written directly back to filename.txt. Without -i, sed would print the modified content to standard output.
+    's/old_string/new_string/g': This is the substitution command:
+        s: Indicates a substitute operation.
+        old_string: The text pattern to be replaced. This can be a literal string or a regular expression.
+        new_string: The text to replace old_string with.
+        g: The "global" flag, which ensures that all occurrences of old_string on each line are replaced, not just the first one.
+
+Example:
+To replace all instances of "apple" with "orange" in a file named fruits.txt:
+Code
+
+ Perform the replacement using sed 
+ -i: edit the file in place
+ s/pattern/replacement/g: substitute 'pattern' with 'replacement' globally (all occurrences)
+ Double quotes are crucial for variable expansion within the sed command
+sed -i "s/$SEARCH_TEXT/$REPLACE_TEXT/g" "$FILE"
+
+7. enable v2ray to run automatically and start
+    v2ray enable
+    v2ray stop 
+    v2ray start
+
+
+
+
+
 
 8. start v2ray and enjoy the internet XD
 
