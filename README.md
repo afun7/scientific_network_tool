@@ -5,7 +5,8 @@ A script to automate setup a tool to safely access internet
 # Summary
 This document is to specify the steps that needs to be done to setup a v2ray server
 
-# Networking Summary (for people interested in how it work )
+# Networking Summary (for people interested in how it work)
+
 
 
 
