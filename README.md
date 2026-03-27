@@ -129,10 +129,13 @@ Step:
 # Server setup
 
 0. I have setup a bash script to automate this step, the detail steps you can see from 1+. (if you just want it to work, you can skip the rest detail step explanation)
-    #run this first
+    
+    run this first:
+    
     sudo su
 
-    #then this
+    then this:
+
     bash <(curl -L https://raw.githubusercontent.com/afun7/scientific_network_tool/refs/heads/main/config_example/vmess%2Btcp/setup_script.sh)
 
 
